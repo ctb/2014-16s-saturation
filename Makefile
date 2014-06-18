@@ -44,16 +44,16 @@ podar_analysis: podar.16s.x.16s.k32.kmers.out \
 
 
 podar.16s.x.16s.k32.kmers.out:
-	./saturate-by-kmers.py -k 32 podar/SRR606370.fastq.gz podar/SRR606370.fastq.gz podar.16s.x.16s.k32.kmers.out
+	./saturate-by-kmers.py -k 32 -s 1000 podar/SRR606370.fastq.gz podar/SRR606370.fastq.gz podar.16s.x.16s.k32.kmers.out
 
 podar.16s.x.16s.k20.kmers.out:
-	./saturate-by-kmers.py -k 20 podar/SRR606370.fastq.gz podar/SRR606370.fastq.gz podar.16s.x.16s.k20.kmers.out
+	./saturate-by-kmers.py -k 20 -s 1000 podar/SRR606370.fastq.gz podar/SRR606370.fastq.gz podar.16s.x.16s.k20.kmers.out
 
 podar.16s.x.16s.k32.reads.out:
-	./saturate-by-reads.py -k 32 podar/SRR606370.fastq.gz podar/SRR606370.fastq.gz podar.16s.x.16s.k32.reads.out
+	./saturate-by-reads.py -k 32 -s 1000 podar/SRR606370.fastq.gz podar/SRR606370.fastq.gz podar.16s.x.16s.k32.reads.out
 
 podar.16s.x.16s.k20.reads.out:
-	./saturate-by-reads.py -k 20 podar/SRR606370.fastq.gz podar/SRR606370.fastq.gz podar.16s.x.16s.k20.reads.out
+	./saturate-by-reads.py -k 20 -s 1000 podar/SRR606370.fastq.gz podar/SRR606370.fastq.gz podar.16s.x.16s.k20.reads.out
 
 podar.16s.x.wgs.k20.kmers.out:
 	./saturate-by-kmers.py -k 20 podar/SRR606370.fastq.gz podar/SRR606249_1.fastq.gz podar.16s.x.wgs.k20.kmers.out
