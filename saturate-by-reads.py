@@ -16,6 +16,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-k', '--ksize', type=int, default=DEFAULT_K)
     parser.add_argument('-s', '--sampling', type=int, default=10000)
+    parser.add_argument('-M', '--max-reads', type=int, default=None)
     parser.add_argument('rrna_file')
     parser.add_argument('reads_file')
     parser.add_argument('output')
@@ -58,8 +59,8 @@ def main():
         ht.consume(record.sequence)
         total_bp += len(record.sequence)
 
-        if n > 0 and n % args.sampling == 0:
-            if n > 25e6:
+        if n % args.sampling_rate == 0:
+            if args.max_reads and n > args.max_reads:
                 break
             j = 0
             for readset in x:
