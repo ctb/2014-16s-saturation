@@ -58,7 +58,7 @@ def main():
         total_bp += len(record.sequence)
 
         if n > 0 and n % 1000 == 0:
-            if n > 50:
+            if n > 25e6:
                 break
             j = 0
             for readset in x:
