@@ -17,6 +17,7 @@ def main():
     parser.add_argument('-k', '--ksize', type=int, default=DEFAULT_K)
     parser.add_argument('-s', '--sampling-rate', type=int, default=10000)
     parser.add_argument('-M', '--max-reads', type=int, default=None)
+    parser.add_argument('-m', '--min-kmer-count', type=int, default=2)
     parser.add_argument('rrna_file')
     parser.add_argument('reads_file')
     parser.add_argument('output')
@@ -39,7 +40,7 @@ def main():
         for i in range(len(seq) - K + 1):
             kmer = seq[i:i+K]
             count = ht.get(kmer)
-            if count > 1 and count < 10:
+            if count >= args.min_kmer_count:
                 unique_kmers.add(kmer)
 
     print len(unique_kmers), 'unique kmers'
