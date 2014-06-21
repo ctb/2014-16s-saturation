@@ -1,4 +1,4 @@
-all: soil_analysis podar_analysis
+all: soil_analysis podar_analysis beetle
 
 soil_analysis: soil.16s.x.16s.k32.kmers.out \
 	soil.16s.x.16s.k20.kmers.out \
@@ -152,27 +152,18 @@ podar_16s.hist: podar/SRR606370.fastq.gz
 	abundance-dist-single.py -k 20 -x 1e8 -N 4 podar/SRR606370.fastq.gz podar_16s.hist
 
 podar.contam.fa.orig: reads-nobias.fa
-	cat reads-nobias.fa > podar.contam.fa.orig
-	cat reads-nobias.fa >> podar.contam.fa.orig
-	cat reads-nobias.fa >> podar.contam.fa.orig
-	cat reads-nobias.fa >> podar.contam.fa.orig
-	cat reads-nobias.fa >> podar.contam.fa.orig
-	cat reads-nobias.fa >> podar.contam.fa.orig
-	cat reads-nobias.fa >> podar.contam.fa.orig
-	cat reads-nobias.fa >> podar.contam.fa.orig
-	cat reads-nobias.fa >> podar.contam.fa.orig
-	cat reads-nobias.fa >> podar.contam.fa.orig
-	cat reads-nobias.fa >> podar.contam.fa.orig
-	cat reads-nobias.fa >> podar.contam.fa.orig
-	cat reads-nobias.fa >> podar.contam.fa.orig
-
 	gunzip -c podar/SRR606249_1.fastq.gz | head -40000000 > podar.contam.fq.orig
 	fastq-to-fasta.py podar.contam.fq.orig > podar.contam.fq.fa
-	cat podar.contam.fq.fa >> podar.contam.fa.orig
 
 podar.contam.fa: podar.contam.fa.orig
-	sample-reads-randomly.py -N 10000000 -o podar.contam.fa podar.contam.fa.orig
+	sample-reads-randomly.py -N 1000000 -S 20 podar.contam.fq.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa 
+	cat podar.contam.fq.fa.subset.* > podar.contam.fa
+	rm -f podar.contam.fq.fa.subset.*
 
-podar.16s.x.contam.k20.kmers.m20.out:
+podar.16s.x.contam.k20.kmers.m20.out: podar.contam.fa
 	./saturate-by-kmers.py -k 20 -m 20 -s 200000 -M 20000000 podar/SRR606370.fastq.gz podar.contam.fa podar.16s.x.contam.k20.kmers.m20.out
 
+beetle: beetle.kmers.m20.out
+
+beetle.kmers.m20.out: beetle/combined_16S_18S.fastq beetle/WGS_beetle_gut_metagenome.fastq 
+	./saturate-by-kmers.py -k 20 -m 20 -s 10000 beetle/combined_16S_18S.fastq beetle/WGS_beetle_gut_metagenome.fastq beetle.kmers.m20.out
