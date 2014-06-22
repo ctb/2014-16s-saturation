@@ -38,7 +38,12 @@ podar_analysis: podar.16s.x.16s.k32.kmers.out \
 	podar.v69.x.wgs.k20.kmers.m20.out \
 	podar.v13.x.wgs.k20.kmers.m20.out \
 	podar.contam.fa \
-	podar.16s.x.contam.k20.kmers.m20.out
+	podar.16s.x.contam.k20.kmers.m20.out \
+	podar.c01.x.wgs.k20.kmers.m20.out \
+	podar.c02.x.wgs.k20.kmers.m20.out \
+	podar.c03.x.wgs.k20.kmers.m20.out \
+	podar.c04.x.wgs.k20.kmers.m20.out \
+	podar.c05.x.wgs.k20.kmers.m20.out
 
 soil.16s.x.16s.k32.kmers.out:
 	./saturate-by-kmers.py -k 32 soil/C2_16s.fa.gz soil/C2_16s.fa.gz soil.16s.x.16s.k32.kmers.out
@@ -112,6 +117,33 @@ podar.16s.x.wgs.k20.kmers.m20.out:
 podar.v13.x.wgs.k20.kmers.m20.out:
 	./saturate-by-kmers.py -k 20 -m 20 -s 200000 -M 20000000 podar/16s/v13.SRR606368.fastq.gz podar/SRR606249_1.fastq.gz podar.v13.x.wgs.k20.kmers.m20.out
 
+podar.c0.x.wgs.k20.kmers.m20.out:
+	./saturate-by-kmers.py -k 20 -m 20 -s 200000 -M 20000000 podar/otu/v13.list.cluster0000.fa podar/SRR606249_1.fastq.gz podar.c0.x.wgs.k20.kmers.m20.out
+
+podar.c20.x.wgs.k20.kmers.m20.out:
+	./saturate-by-kmers.py -k 20 -m 20 -s 200000 -M 20000000 podar/otu/v13.list.cluster0020.fa podar/SRR606249_1.fastq.gz podar.c20.x.wgs.k20.kmers.m20.out
+
+podar.c01.x.wgs.k20.kmers.m20.out:
+	./saturate-by-kmers.py -k 20 -m 20 -s 10000 -M 2000000 podar/otu/v13.list.cluster0001.fa podar/SRR606249_1.fastq.gz podar.c01.x.wgs.k20.kmers.m20.out
+
+podar.c02.x.wgs.k20.kmers.m20.out:
+	./saturate-by-kmers.py -k 20 -m 20 -s 10000 -M 2000000 podar/otu/v13.list.cluster0002.fa podar/SRR606249_1.fastq.gz podar.c02.x.wgs.k20.kmers.m20.out
+
+podar.c03.x.wgs.k20.kmers.m20.out:
+	./saturate-by-kmers.py -k 20 -m 20 -s 10000 -M 2000000 podar/otu/v13.list.cluster0003.fa podar/SRR606249_1.fastq.gz podar.c03.x.wgs.k20.kmers.m20.out
+
+podar.c04.x.wgs.k20.kmers.m20.out:
+	./saturate-by-kmers.py -k 20 -m 20 -s 10000 -M 2000000 podar/otu/v13.list.cluster0004.fa podar/SRR606249_1.fastq.gz podar.c04.x.wgs.k20.kmers.m20.out
+
+podar.c05.x.wgs.k20.kmers.m20.out:
+	./saturate-by-kmers.py -k 20 -m 20 -s 10000 -M 2000000 podar/otu/v13.list.cluster0005.fa podar/SRR606249_1.fastq.gz podar.c05.x.wgs.k20.kmers.m20.out
+
+podar.c40.x.wgs.k20.kmers.m20.out:
+	./saturate-by-kmers.py -k 20 -m 10 -s 200000 -M 20000000 podar/otu/v13.list.cluster0040.fa podar/SRR606249_1.fastq.gz podar.c40.x.wgs.k20.kmers.m20.out
+
+podar.c60.x.wgs.k20.kmers.m20.out:
+	./saturate-by-kmers.py -k 20 -m 10 -s 200000 -M 20000000 podar/otu/v13.list.cluster0060.fa podar/SRR606249_1.fastq.gz podar.c60.x.wgs.k20.kmers.m20.out
+
 podar.v4arch.x.wgs.k20.kmers.m20.out:
 	./saturate-by-kmers.py -k 20 -m 20 -s 200000 -M 20000000 podar/16s/v4arch.SRR606356.fastq.gz podar/SRR606249_1.fastq.gz podar.v4arch.x.wgs.k20.kmers.m20.out
 
@@ -155,7 +187,7 @@ podar.contam.fa.orig: reads-nobias.fa
 	gunzip -c podar/SRR606249_1.fastq.gz | head -40000000 > podar.contam.fq.orig
 	fastq-to-fasta.py podar.contam.fq.orig > podar.contam.fq.fa
 
-podar.contam.fa: podar.contam.fa.orig
+podar.contam.fa: podar.contam.fq.fa
 	sample-reads-randomly.py -N 1000000 -S 20 podar.contam.fq.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa reads-nobias.fa 
 	cat podar.contam.fq.fa.subset.* > podar.contam.fa
 	rm -f podar.contam.fq.fa.subset.*
@@ -167,3 +199,11 @@ beetle: beetle.kmers.m20.out
 
 beetle.kmers.m20.out: beetle/combined_16S_18S.fastq beetle/WGS_beetle_gut_metagenome.fastq 
 	./saturate-by-kmers.py -k 20 -m 20 -s 10000 beetle/combined_16S_18S.fastq beetle/WGS_beetle_gut_metagenome.fastq beetle.kmers.m20.out
+
+lanier: lanier.wgs.C1.report lanier.16s1.x.wgs1.kmers.out
+
+lanier.16s1.x.wgs.kmers.out:
+	./saturate-by-kmers.py -k 20 -m 20 -s 100000 lanier/16s/SRR401324.fastq.gz lanier/lanier-combined.fastq.gz lanier.16s1.x.wgs.kmers.out
+
+lanier.wgs.C1.report:
+	/u/t/dev/khmer/sandbox/saturate-by-median.py -C 1 -k 20 -x 8e9 -N 4 lanier/*_1.fastq.gz lanier/*_2.fastq.gz -R lanier.wgs.C1.report
