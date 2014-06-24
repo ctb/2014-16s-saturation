@@ -1,4 +1,4 @@
-all: soil_analysis podar_analysis beetle
+all: soil_analysis podar_analysis beetle wrighton
 
 soil_analysis: soil.16s.x.16s.k32.kmers.out \
 	soil.16s.x.16s.k20.kmers.out \
@@ -45,6 +45,10 @@ podar_analysis: podar.16s.x.16s.k32.kmers.out \
 	podar.c04.x.wgs.k20.kmers.m20.out \
 	podar.c05.x.wgs.k20.kmers.m20.out
 
+wrighton: wrighton.16s.x.wgs-a.kmers.out \
+	wrighton.16s.x.wgs-b.kmers.out \
+	wrighton.16s.x.wgs-c.kmers.out
+
 soil.16s.x.16s.k32.kmers.out:
 	./saturate-by-kmers.py -k 32 soil/C2_16s.fa.gz soil/C2_16s.fa.gz soil.16s.x.16s.k32.kmers.out
 
@@ -61,7 +65,7 @@ soil.16s.x.wgs.k20.kmers.m40.out:
 	./saturate-by-kmers.py -k 20 -m 40 -s 1000000 -M 20000000 soil/C2_16s.fa.gz soil/C2_wgs.subset.fa.gz soil.16s.x.wgs.k20.kmers.m40.out
 
 soil.16s.x.wgs.k20.kmers.m20.out:
-	./saturate-by-kmers.py -k 20 -m 20 -s 1000000 -M 20000000 soil/C2_16s.fa.gz soil/C2_wgs.subset.fa.gz soil.16s.x.wgs.k20.kmers.m20.out
+	./saturate-by-kmers.py -k 20 -m 20 -s 1000000 soil/C2_16s.fa.gz soil/C2_wgs.subset.fa.gz soil.16s.x.wgs.k20.kmers.m20.out
 
 soil.16s.x.wgs.k20.kmers.m10.out:
 	./saturate-by-kmers.py -k 20 -m 10 -s 1000000 -M 20000000 soil/C2_16s.fa.gz soil/C2_wgs.subset.fa.gz soil.16s.x.wgs.k20.kmers.m10.out
@@ -207,3 +211,13 @@ lanier.16s1.x.wgs.kmers.out:
 
 lanier.wgs.C1.report:
 	/u/t/dev/khmer/sandbox/saturate-by-median.py -C 1 -k 20 -x 8e9 -N 4 lanier/*_1.fastq.gz lanier/*_2.fastq.gz -R lanier.wgs.C1.report
+
+wrighton.16s.x.wgs-a.kmers.out:
+	./saturate-by-kmers.py -k 20 -m 20 -M 4000000 wrighton/16S_EMIRGE_CloneSilva108db_p0.005.fasta wrighton/SRR446575_1.fastq.gz wrighton.16s.x.wgs-a.kmers.out
+
+wrighton.16s.x.wgs-b.kmers.out:
+	./saturate-by-kmers.py -k 20 -m 20 -M 4000000 wrighton/16S_EMIRGE_CloneSilva108db_p0.005.fasta wrighton/SRR446576_1.fastq.gz wrighton.16s.x.wgs-b.kmers.out
+
+wrighton.16s.x.wgs-c.kmers.out:
+	./saturate-by-kmers.py -k 20 -m 20 -M 4000000 wrighton/16S_EMIRGE_CloneSilva108db_p0.005.fasta wrighton/SRR446577_1.fastq.gz wrighton.16s.x.wgs-c.kmers.out
+
